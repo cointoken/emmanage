@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block main %}
+  <div class="login-form text-center">
+    <h2>请登录</h2>
+    {% include 'flash_messages.html' %}
+    <form action="{{ url_for('login') }}" method="post">
+      {{ form.csrf_token }}
+      <div class="form-group">
+        {{ form.email.label }}{{ form.email(class='form-control', placeholder="输入正确邮箱地址") }}
+      </div>
+      <div class="form-group">
+        {{ form.password.label }}{{ form.password(class='form-control') }}
+      </div>
+      <div class="form-group">
+        {{ form.remember_me }} {{ form.remember_me.label }}
+      </div>
+      <button type="submit" name="submit" class="btn btn-primary btn-block">登录</button>
+    </form>
+  </div>
+{% endblock %}

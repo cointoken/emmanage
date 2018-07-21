@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+  <span class="navbar-brand mb-0 h1">管理后台</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('home') }}">首页 <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('about') }}">关于</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('secure_page') }}">安全</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav">
+      {% if current_user.is_authenticated %}
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('logout') }}">退出</a>
+          </li>
+      {% else %}
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('login') }}">登录</a>
+          </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
