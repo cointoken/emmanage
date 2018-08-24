@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block main %}
+<button type="submit" name="submit" >同步</button>
+<button type="submit" name="submit" >导出csv文件</button>
+<table class="table">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>用户名</th>
+        <th>手机号</th>
+        <th>币种</th>
+        <th>数量</th>
+        <th>手续费</th>
+        <th>地址</th>
+        <th>提现时间</th>
+        <th>审核时间</th>
+        <th>是否提现  <label><input type="checkbox">全选</label></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for t in trans %}
+          <tr>
+            <td>{{ t.id }}</td>
+            <td>{{ t.email}}</td>
+            <td>{{ t.phone }}</td>
+            <td>{{ t.currency}}</td>
+            <td>{{ t.amount }}</td>
+            <td>{{ t.fee }}</td>
+            <td>{{ t.address }}</td>
+            <td>{{ t.withdraw_time }}</td>
+            <td>{{ t.audit_time }}</td>
+            <td><input type="checkbox"/></td>
+          </tr>
+         {% endfor %}
+    </tbody>
+  </table>
+  {% import "page.html" as page %}
+  {{page.pager('/transfer', p.total, p.limit, p.curr_page)}}
+{% endblock %}

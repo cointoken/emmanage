@@ -3,9 +3,14 @@ from flask import render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from .forms import LoginForm
 from .models import Members
+from .models import Transfer
+from .mydb import MyDb
+from . import myconfig
 from werkzeug.security import check_password_hash
 from sqlalchemy import update
 from datetime import datetime
+from sqlalchemy import create_engine
+
 
 
 @app.route('/')
@@ -14,23 +19,36 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/about')
-def about():
-    """Render the website's about page."""
-    return render_template('about.html', name="Mary Jane")
-
-
-@app.route('/secure-page')
+@app.route('/transfer')
 @login_required
-def secure_page():
+def transfer():
+    engine = create_engine(myconfig.SQLALCHEMY_DATABASE_URI)
+    db = MyDb(engine)
+ 
+    page = int(request.args.get('p', '1'))
+    if not page:
+        page = 1
+    limit = int(request.args.get('limit', '10'))
+    if not limit:
+        limit = 10
+    
+    trans = db.transfer_query_from_page(0,limit,page)
+    print(trans.count)
+    pager = {'total': 30, 'limit':limit, 'curr_page': page}
+    return render_template('transfer.html', trans=trans,p=pager)
+
+
+@app.route('/transfer_record')
+@login_required
+def transfer_record():
     """Render a secure page on our website that only logged in users can access."""
-    return render_template('secure_page.html')
+    return render_template('transfer_record.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('secure_page'))
+        return redirect(url_for('transfer'))
 
    
     form = LoginForm()

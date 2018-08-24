@@ -12,7 +12,7 @@ manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
-    m = Members('test123@163.com','test123','python18')
-    db.session.add(m)
-    db.session.commit()
+    # m = Members('test123@163.com','test123','python18')
+    # db.session.add(m)
+    # db.session.commit()
     manager.run()
