@@ -48,7 +48,7 @@ class Transfer(db.Model):
      address = db.Column(db.String(255))
      withdraw_time = db.Column(db.DateTime)
      audit_time = db.Column(db.DateTime)
-     transfer_time = db.Column(db.DateTime)
+    # transfer_time = db.Column(db.DateTime)
      status = db.Column(db.Boolean)
      txid = db.Column(db.String(255))
 
@@ -62,6 +62,6 @@ class Transfer(db.Model):
          self.address = address
          self.withdraw_time = withdraw_time
          self.audit_time = audit_time
-         self.transfer_time = transfer_time
+        # self.transfer_time = transfer_time
          self.status = False
          self.txid = ''
