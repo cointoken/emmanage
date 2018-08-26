@@ -14,43 +14,60 @@ from sqlalchemy import create_engine
 
 
 @app.route('/')
+@login_required
 def home():
     """Render website's home page."""
     return render_template('home.html')
 
 
-@app.route('/transfer')
+@app.route('/transfer/<string:name>')
 @login_required
-def transfer():
-    engine = create_engine(myconfig.SQLALCHEMY_DATABASE_URI)
-    db = MyDb(engine)
- 
+def transfer(name,methods=['GET']):
+    if not name:
+        name = 'btc'
+
     page = int(request.args.get('p', '1'))
     if not page:
         page = 1
-    limit = int(request.args.get('limit', '10'))
+    limit = int(request.args.get('limit', '13'))
     if not limit:
-        limit = 10
-    
-    trans = db.transfer_query_from_page(0,limit,page)
-    print(trans.count)
-    pager = {'total': 30, 'limit':limit, 'curr_page': page}
+        limit = 13
+
+    engine = create_engine(myconfig.SQLALCHEMY_DATABASE_URI)
+    db = MyDb(engine)
+    count = db.transfer_get_count(False,name)
+    trans = db.transfer_query_all(False,name,limit,page)
+    pager = {'total': count, 'limit':limit, 'curr_page': page,'name':name}
     return render_template('transfer.html', trans=trans,p=pager)
 
 
-@app.route('/transfer_record')
+@app.route('/transfer_record/<string:name>')
 @login_required
-def transfer_record():
-    """Render a secure page on our website that only logged in users can access."""
-    return render_template('transfer_record.html')
+def transfer_record(name,methods=['GET']):
+    if not name:
+        name = 'btc'
+    
+    page = int(request.args.get('p', '1'))
+    if not page:
+        page = 1
+    limit = int(request.args.get('limit', '13'))
+    if not limit:
+        limit = 13
+
+    engine = create_engine(myconfig.SQLALCHEMY_DATABASE_URI)
+    db = MyDb(engine)
+    count = db.transfer_get_count(True,name)
+    trans = db.transfer_query_all(True,name,limit,page)
+    pager = {'total': count, 'limit':limit, 'curr_page': page,'name':name}
+ 
+    return render_template('transfer_record.html', trans=trans,p=pager)
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('transfer'))
+        return redirect(url_for('transfer',name='btc'))
 
-   
     form = LoginForm()
     if request.method == 'POST' and form.validate_on_submit():
     
@@ -82,7 +99,7 @@ def login():
 def logout():
     logout_user()
     flash('You have been logged out.', 'danger')
-    return redirect(url_for('home'))
+    return redirect(url_for('login'))
 
 
 @login_manager.user_loader

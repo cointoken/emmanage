@@ -1,21 +1,32 @@
 {% extends "base.html" %}
-
 {% block main %}
-  <div class="login-form text-center">
-    <h2>请登录</h2>
-    {% include 'flash_messages.html' %}
-    <form action="{{ url_for('login') }}" method="post">
-      {{ form.csrf_token }}
-      <div class="form-group">
-        {{ form.email.label }}{{ form.email(class='form-control', placeholder="输入正确邮箱地址") }}
+  <div class="container">
+      <div class="row">
+          <div class="col-md-offset-3 col-md-6">
+              <form class="form-horizontal" action="{{ url_for('login') }}" method="post">
+                  {{ form.csrf_token }}
+                  <span class="heading">用户登录</span>
+                  <div class="form-group">
+                      {{ form.email(class='form-control', placeholder="输入正确邮箱地址") }}
+                      <i class="fa fa-user"></i>
+                  </div>
+                  <div class="form-group help">
+                      {{ form.password(class='form-control', placeholder="输入正确密码") }}
+                      <!-- <input type="password" class="form-control" id="inputPassword3" placeholder="密　码"> -->
+                      <i class="fa fa-lock"></i>
+                      <a href="#" class="fa fa-question-circle"></a>
+                  </div>
+                  <div class="form-group">
+                      <div class="main-checkbox">
+                          <input type="checkbox" value="None" id="checkbox1" name="check"/>
+                          <label for="checkbox1"></label>
+                      </div>
+                      <span class="text">Remember me</span>
+                      <button type="submit" class="btn btn-default">登录</button>
+                  </div>
+              </form>
+          </div>
       </div>
-      <div class="form-group">
-        {{ form.password.label }}{{ form.password(class='form-control') }}
-      </div>
-      <div class="form-group">
-        {{ form.remember_me }} {{ form.remember_me.label }}
-      </div>
-      <button type="submit" name="submit" class="btn btn-primary btn-block">登录</button>
-    </form>
   </div>
 {% endblock %}
+

@@ -48,11 +48,11 @@ class Transfer(db.Model):
      address = db.Column(db.String(255))
      withdraw_time = db.Column(db.DateTime)
      audit_time = db.Column(db.DateTime)
-    # transfer_time = db.Column(db.DateTime)
+     transfer_time = db.Column(db.DateTime)
      status = db.Column(db.Boolean)
      txid = db.Column(db.String(255))
 
-     def __init__(self,tran_id,email,phone,currency,amount,fee,address,withdraw_time,audit_time,transfer_time):
+     def __init__(self,tran_id,email,phone,currency,amount,fee,address,withdraw_time,audit_time):
          self.tran_id = tran_id
          self.email = email
          self.phone = phone

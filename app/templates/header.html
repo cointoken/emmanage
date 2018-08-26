@@ -1,32 +1,23 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-  <span class="navbar-brand mb-0 h1">管理后台</span>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ url_for('home') }}">首页 <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('transfer') }}">转账</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('transfer_record') }}">转账记录</a>
-      </li>
-      
-    </ul>
-
-    <ul class="navbar-nav">
-      {% if current_user.is_authenticated %}
-          <li class="nav-item active">
-            <a class="nav-link" href="{{ url_for('logout') }}">退出</a>
-          </li>
-      {% else %}
-          <li class="nav-item active">
-            <a class="nav-link" href="{{ url_for('login') }}">登录</a>
-          </li>
-      {% endif %}
-    </ul>
-  </div>
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="{{ url_for('home') }}">首页</a>
+    </div>
+    <div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="{{ url_for('transfer',name='btc') }}">转账</a></li>
+            <li><a href="{{ url_for('transfer_record',name='btc') }}">转账记录</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    设置 <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ url_for('logout') }}">退出</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{{ url_for('login') }}">登录</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    </div>
 </nav>

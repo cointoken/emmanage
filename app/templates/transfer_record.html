@@ -2,4 +2,236 @@
 
 {% block main %}
 
+<!-- <button type="submit" name="submit" >同步</button>
+<button type="submit" name="submit" >导出csv文件</button> -->
+<ul id="myTab" class="nav nav-tabs">
+	<li class="{% if p.name=='btc'%} in active {%endif%}">
+		<a href="" data-toggle="tab">BTC</a>
+	</li>
+	<li  class="{% if p.name=='usdt'%} in active {%endif%}"><a href="" data-toggle="tab">USDT</a></li>
+  <li class="{% if p.name=='bch'%} in active {%endif%}"><a href="" data-toggle="tab">BCH</a></li> 
+  <li class="{% if p.name=='ltc'%} in active {%endif%}"><a href="" data-toggle="tab">LTC</a></li>
+  <li class="{% if p.name=='eth'%} in active {%endif%}"><a href="" data-toggle="tab">ETH</a></li>
+  <li class="{% if p.name=='etc'%} in active {%endif%}"><a href="" data-toggle="tab">ETC</a></li>
+</ul>
+
+<div id="myTabContent" class="tab-content">
+	<div class="tab-pane fade  in active " id="btc">
+		<table class="table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>用户名</th>
+          <th>手机号</th>
+          <th>币种</th>
+          <th>数量</th>
+          <th>手续费</th>
+          <th>地址</th>
+          <th>提现时间</th>
+          <th>审核时间</th>
+          <th>转账时间</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for t in trans %}
+            <tr>
+              <td>{{ t.id }}</td>
+              <td>{{ t.email}}</td>
+              <td>{{ t.phone }}</td>
+              <td>{{ t.currency}}</td>
+              <td>{{ t.amount }}</td>
+              <td>{{ t.fee }}</td>
+              <td>{{ t.address }}</td>
+              <td>{{ t.withdraw_time }}</td>
+              <td>{{ t.audit_time }}</td>
+              <td>{{ t.transfer_time }}</td>
+            </tr>
+           {% endfor %}
+      </tbody>
+    </table>
+	</div>
+	<div class="tab-pane fade" id="usdt">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>用户名</th>
+          <th>手机号</th>
+          <th>币种</th>
+          <th>数量</th>
+          <th>手续费</th>
+          <th>地址</th>
+          <th>提现时间</th>
+          <th>审核时间</th>
+          <th>转账时间</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for t in trans %}
+            <tr>
+              <td>{{ t.id }}</td>
+              <td>{{ t.email}}</td>
+              <td>{{ t.phone }}</td>
+              <td>{{ t.currency}}</td>
+              <td>{{ t.amount }}</td>
+              <td>{{ t.fee }}</td>
+              <td>{{ t.address }}</td>
+              <td>{{ t.withdraw_time }}</td>
+              <td>{{ t.audit_time }}</td>
+              <td>{{ t.transfer_time }}</td>
+            </tr>
+           {% endfor %}
+      </tbody>
+    </table>
+	</div>
+	<div class="tab-pane fade" id="bch">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>用户名</th>
+          <th>手机号</th>
+          <th>币种</th>
+          <th>数量</th>
+          <th>手续费</th>
+          <th>地址</th>
+          <th>提现时间</th>
+          <th>审核时间</th>
+          <th>转账时间</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for t in trans %}
+            <tr>
+              <td>{{ t.id }}</td>
+              <td>{{ t.email}}</td>
+              <td>{{ t.phone }}</td>
+              <td>{{ t.currency}}</td>
+              <td>{{ t.amount }}</td>
+              <td>{{ t.fee }}</td>
+              <td>{{ t.address }}</td>
+              <td>{{ t.withdraw_time }}</td>
+              <td>{{ t.audit_time }}</td>
+              <td>{{ t.transfer_time }}</td>
+            </tr>
+           {% endfor %}
+      </tbody>
+    </table>
+	</div>
+	<div class="tab-pane fade" id="ltc">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>用户名</th>
+          <th>手机号</th>
+          <th>币种</th>
+          <th>数量</th>
+          <th>手续费</th>
+          <th>地址</th>
+          <th>提现时间</th>
+          <th>审核时间</th>
+          <th>转账时间</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for t in trans %}
+            <tr>
+              <td>{{ t.id }}</td>
+              <td>{{ t.email}}</td>
+              <td>{{ t.phone }}</td>
+              <td>{{ t.currency}}</td>
+              <td>{{ t.amount }}</td>
+              <td>{{ t.fee }}</td>
+              <td>{{ t.address }}</td>
+              <td>{{ t.withdraw_time }}</td>
+              <td>{{ t.audit_time }}</td>
+              <td>{{ t.transfer_time }}</td>
+            </tr>
+           {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane fade" id="eth">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>用户名</th>
+          <th>手机号</th>
+          <th>币种</th>
+          <th>数量</th>
+          <th>手续费</th>
+          <th>地址</th>
+          <th>提现时间</th>
+          <th>审核时间</th>
+          <th>转账时间</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for t in trans %}
+            <tr>
+              <td>{{ t.id }}</td>
+              <td>{{ t.email}}</td>
+              <td>{{ t.phone }}</td>
+              <td>{{ t.currency}}</td>
+              <td>{{ t.amount }}</td>
+              <td>{{ t.fee }}</td>
+              <td>{{ t.address }}</td>
+              <td>{{ t.withdraw_time }}</td>
+              <td>{{ t.audit_time }}</td>
+              <td>{{ t.transfer_time }}</td>
+            </tr>
+           {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane fade" id="etc">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>用户名</th>
+          <th>手机号</th>
+          <th>币种</th>
+          <th>数量</th>
+          <th>手续费</th>
+          <th>地址</th>
+          <th>提现时间</th>
+          <th>审核时间</th>
+          <th>转账时间</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for t in trans %}
+            <tr>
+              <td>{{ t.id }}</td>
+              <td>{{ t.email}}</td>
+              <td>{{ t.phone }}</td>
+              <td>{{ t.currency}}</td>
+              <td>{{ t.amount }}</td>
+              <td>{{ t.fee }}</td>
+              <td>{{ t.address }}</td>
+              <td>{{ t.withdraw_time }}</td>
+              <td>{{ t.audit_time }}</td>
+              <td>{{ t.transfer_time }}</td>
+            </tr>
+           {% endfor %}
+      </tbody>
+    </table>
+	</div>
+</div>
+{% import "page.html" as page %}
+{{page.pager('/transfer_record/'+p.name, p.total, p.limit, p.curr_page,p.name)}}
+<script>
+    $(function(){
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            // 获取已激活的标签页的名称
+            var activeTab = $(e.target).text();
+            window.location.href= 'http://'+window.location.host+'/transfer_record/'+activeTab.toLowerCase();
+            // 获取前一个激活的标签页的名称
+            //var previousTab = $(e.relatedTarget).text();
+        });
+    });
+</script>
 {% endblock %}

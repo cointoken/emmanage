@@ -1,2 +1,1 @@
-
-SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:admin@localhost/exchange'
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@localhost/exchange'

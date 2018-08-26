@@ -1,39 +1,346 @@
 {% extends "base.html" %}
 {% block main %}
-<button type="submit" name="submit" >同步</button>
-<button type="submit" name="submit" >导出csv文件</button>
-<table class="table">
-    <thead>
-      <tr>
-        <th>id</th>
-        <th>用户名</th>
-        <th>手机号</th>
-        <th>币种</th>
-        <th>数量</th>
-        <th>手续费</th>
-        <th>地址</th>
-        <th>提现时间</th>
-        <th>审核时间</th>
-        <th>是否提现  <label><input type="checkbox">全选</label></th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for t in trans %}
-          <tr>
-            <td>{{ t.id }}</td>
-            <td>{{ t.email}}</td>
-            <td>{{ t.phone }}</td>
-            <td>{{ t.currency}}</td>
-            <td>{{ t.amount }}</td>
-            <td>{{ t.fee }}</td>
-            <td>{{ t.address }}</td>
-            <td>{{ t.withdraw_time }}</td>
-            <td>{{ t.audit_time }}</td>
-            <td><input type="checkbox"/></td>
-          </tr>
-         {% endfor %}
-    </tbody>
-  </table>
-  {% import "page.html" as page %}
-  {{page.pager('/transfer', p.total, p.limit, p.curr_page)}}
+
+<!-- <button type="button" class="btn btn-primary" 
+    data-toggle="button"> 同步
+</button> -->
+<button type="button" class="btn btn-primary" 
+    data-toggle="button" onclick="csvexport()"> 导出csv文件
+</button>
+
+<ul id="myTab" class="nav nav-tabs">
+	<li class="{% if p.name=='btc'%} in active {%endif%}">
+		<a href="" data-toggle="tab">BTC</a>
+	</li>
+	<li  class="{% if p.name=='usdt'%} in active {%endif%}"><a href="" data-toggle="tab">USDT</a></li>
+  <li class="{% if p.name=='bch'%} in active {%endif%}"><a href="" data-toggle="tab">BCH</a></li> 
+  <li class="{% if p.name=='ltc'%} in active {%endif%}"><a href="" data-toggle="tab">LTC</a></li>
+  <li class="{% if p.name=='eth'%} in active {%endif%}"><a href="" data-toggle="tab">ETH</a></li>
+  <li class="{% if p.name=='etc'%} in active {%endif%}"><a href="" data-toggle="tab">ETC</a></li>
+</ul>
+
+<div id="myTabContent" class="tab-content">
+	<div class="tab-pane fade  in active " id="btc">
+		<table class="table">
+      <thead>
+        <tr>
+          <th><input type="checkbox" class="all"></th>
+          <th>id</th>
+          <th>用户名</th>
+          <th>手机号</th>
+          <th>币种</th>
+          <th>数量</th>
+          <th>手续费</th>
+          <th>地址</th>
+          <th>提现时间</th>
+          <th>审核时间</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for t in trans %}
+            <tr>
+              <td><input type="checkbox" name='chk_one' class='one'/></td>
+              <td>{{ t.id }}</td>
+              <td>{{ t.email}}</td>
+              <td>{{ t.phone }}</td>
+              <td>{{ t.currency}}</td>
+              <td>{{ t.amount }}</td>
+              <td>{{ t.fee }}</td>
+              <td>{{ t.address }}</td>
+              <td>{{ t.withdraw_time }}</td>
+              <td>{{ t.audit_time }}</td>
+            </tr>
+           {% endfor %}
+      </tbody>
+    </table>
+	</div>
+	<div class="tab-pane fade" id="usdt">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>用户名</th>
+          <th>手机号</th>
+          <th>币种</th>
+          <th>数量</th>
+          <th>手续费</th>
+          <th>地址</th>
+          <th>提现时间</th>
+          <th>审核时间</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for t in trans %}
+            <tr>
+              <td>{{ t.id }}</td>
+              <td>{{ t.email}}</td>
+              <td>{{ t.phone }}</td>
+              <td>{{ t.currency}}</td>
+              <td>{{ t.amount }}</td>
+              <td>{{ t.fee }}</td>
+              <td>{{ t.address }}</td>
+              <td>{{ t.withdraw_time }}</td>
+              <td>{{ t.audit_time }}</td>
+            </tr>
+           {% endfor %}
+      </tbody>
+    </table>
+	</div>
+	<div class="tab-pane fade" id="bch">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>用户名</th>
+          <th>手机号</th>
+          <th>币种</th>
+          <th>数量</th>
+          <th>手续费</th>
+          <th>地址</th>
+          <th>提现时间</th>
+          <th>审核时间</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for t in trans %}
+            <tr>
+              <td>{{ t.id }}</td>
+              <td>{{ t.email}}</td>
+              <td>{{ t.phone }}</td>
+              <td>{{ t.currency}}</td>
+              <td>{{ t.amount }}</td>
+              <td>{{ t.fee }}</td>
+              <td>{{ t.address }}</td>
+              <td>{{ t.withdraw_time }}</td>
+              <td>{{ t.audit_time }}</td>
+            </tr>
+           {% endfor %}
+      </tbody>
+    </table>
+	</div>
+	<div class="tab-pane fade" id="ltc">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>用户名</th>
+          <th>手机号</th>
+          <th>币种</th>
+          <th>数量</th>
+          <th>手续费</th>
+          <th>地址</th>
+          <th>提现时间</th>
+          <th>审核时间</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for t in trans %}
+            <tr>
+              <td>{{ t.id }}</td>
+              <td>{{ t.email}}</td>
+              <td>{{ t.phone }}</td>
+              <td>{{ t.currency}}</td>
+              <td>{{ t.amount }}</td>
+              <td>{{ t.fee }}</td>
+              <td>{{ t.address }}</td>
+              <td>{{ t.withdraw_time }}</td>
+              <td>{{ t.audit_time }}</td>
+            </tr>
+           {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane fade" id="eth">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>用户名</th>
+          <th>手机号</th>
+          <th>币种</th>
+          <th>数量</th>
+          <th>手续费</th>
+          <th>地址</th>
+          <th>提现时间</th>
+          <th>审核时间</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for t in trans %}
+            <tr>
+              <td>{{ t.id }}</td>
+              <td>{{ t.email}}</td>
+              <td>{{ t.phone }}</td>
+              <td>{{ t.currency}}</td>
+              <td>{{ t.amount }}</td>
+              <td>{{ t.fee }}</td>
+              <td>{{ t.address }}</td>
+              <td>{{ t.withdraw_time }}</td>
+              <td>{{ t.audit_time }}</td>
+            </tr>
+           {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane fade" id="etc">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>用户名</th>
+          <th>手机号</th>
+          <th>币种</th>
+          <th>数量</th>
+          <th>手续费</th>
+          <th>地址</th>
+          <th>提现时间</th>
+          <th>审核时间</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for t in trans %}
+            <tr>
+              <td>{{ t.id }}</td>
+              <td>{{ t.email}}</td>
+              <td>{{ t.phone }}</td>
+              <td>{{ t.currency}}</td>
+              <td>{{ t.amount }}</td>
+              <td>{{ t.fee }}</td>
+              <td>{{ t.address }}</td>
+              <td>{{ t.withdraw_time }}</td>
+              <td>{{ t.audit_time }}</td>
+            </tr>
+           {% endfor %}
+      </tbody>
+    </table>
+	</div>
+</div>
+{% import "page.html" as page %}
+{{page.pager('/transfer/'+p.name, p.total, p.limit, p.curr_page,p.name)}}
+<script>
+
+    $(function(){
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var activeTab = $(e.target).text();
+            window.location.href= 'http://'+window.location.host+'/transfer/'+activeTab.toLowerCase();
+            //var previousTab = $(e.relatedTarget).text();
+        });
+    });
+
+    var $checke_all = $(".all"); 
+    var $checke_one = $(".one"); 
+    $checke_all.click(function() {
+        var that = this;
+        $checke_one.each(function() { 
+          this.checked = that.checked;
+        })
+        $checke_all.each(function(){  
+          this.checked=that.checked;
+        })
+    })
+    $checke_one.change(function() {
+        let count = 0; 
+        $checke_one.each(function() { 
+          if(this.checked) {
+            count ++;
+          }
+        })
+        if(count == $checke_one.length) {   
+            $checke_all.each(function() {
+            this.checked = true;
+          })
+        } else {
+            $checke_all.each(function() {
+            this.checked = false;
+          })
+        }
+    })
+
+    function getCurrentDate(format) {
+        var now = new Date();
+        var year = now.getFullYear(); //得到年份
+        var month = now.getMonth();//得到月份
+        var date = now.getDate();//得到日期
+        var day = now.getDay();//得到周几
+        var hour = now.getHours();//得到小时
+        var minu = now.getMinutes();//得到分钟
+        var sec = now.getSeconds();//得到秒
+        month = month + 1;
+        if (month < 10) month = "0" + month;
+        if (date < 10) date = "0" + date;
+        if (hour < 10) hour = "0" + hour;
+        if (minu < 10) minu = "0" + minu;
+        if (sec < 10) sec = "0" + sec;
+        var time = "";
+        //精确到天
+        if(format==1){
+        time = year + "-" + month + "-" + date;
+        }
+        //精确到分
+        else if(format==2){
+        time = year + "-" + month + "-" + date+ " " + hour + ":" + minu + ":" + sec;
+        }
+        return time;
+	  }
+
+    function csvexport(){
+      var ck=document.getElementsByTagName('input');   
+      var count=0; 
+      var arr = new Array();
+      for(var i=1;i<ck.length;i++)   
+      {     
+          if(ck[i].type=="checkbox" && ck[i].checked==true)   
+          {  
+              var tr = ck[i].parentNode.parentNode;
+              var tds = tr.cells;
+              arr[i] = new Array();
+              arr[i][0] = tds[7].innerHTML;
+              arr[i][1] = tds[5].innerHTML;
+              count = count+1;
+          }   
+      }
+      if (count == 0) {
+        alert('提示：未选择任何数据，请选择要导出的数据！');
+        return ;
+      }
+      exportCsv(arr)
+    }
+    
+   function arrayToCsv(data, args = {}) {
+      let columnDelimiter = args.columnDelimiter || ',';
+      let lineDelimiter = args.lineDelimiter || '\n';
+
+      return data.reduce((csv, row) => {
+        const rowContent = Array.isArray(row)
+          ? row.reduce((rowTemp, col) => {
+              let ret = rowTemp ? rowTemp + columnDelimiter : rowTemp;
+              if (col) {
+                let formatedCol = col.toString().replace(new RegExp(lineDelimiter, 'g'), ' ');
+                ret += /,/.test(formatedCol) ? `"${formatedCol}"` : formatedCol;
+              }
+              return ret;
+            }, '')
+          : row;
+        return (csv ? csv + lineDelimiter : '') + rowContent;
+      }, '');
+  }
+
+  const BOM = '\uFEFF'; 
+  function exportCsv(inputData, filename = 'export'+getCurrentDate(2)+'.csv') {
+      const csv = arrayToCsv(inputData);
+
+      if (navigator.msSaveOrOpenBlob) {
+        let blob = new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' });
+        navigator.msSaveOrOpenBlob(blob, filename);
+      } else {
+        let uri = encodeURI(`data:text/csv;charset=utf-8,${BOM}${csv}`);
+        let downloadLink = document.createElement('a');
+        downloadLink.href = uri;
+        downloadLink.download = filename;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+      }
+  }
+</script>
 {% endblock %}
