@@ -65,7 +65,32 @@ class Coins():
         return result          
 
 
+    @staticmethod
+    def usdt_get_transaction(address,amount):
+        result = ''
+        deposit_url = 'https://api.omniexplorer.info/v1/transaction/address'
+        post_data = {
+            'addr': address,
+            'page': 0
+        }
+        if address:
+            r = requests.post(deposit_url,data=post_data)
+            j = json.loads(r.content)
+            try:
+                toaddress = j['address']
+                ts = j['transactions']
+                if ts:
+                    now_seconds = Coins.get_curr_seconds() 
+                    for t in ts:
+                        if toaddress == address and t['amount']==amount and now_seconds-t['blocktime']<1800 and t['valid']==True:
+                            return t['txid']
+            except:
+                result = 'error'
+        return result
+
+
 # if __name__=='__main__':
+#     print(Coins.usdt_get_transaction('1Lsvv4Ucqe2yMByJJ7HY4ajP6H7B8k77jv',0))
 #     # #Coins.btc_transactions('18cBEMRxXHqzWWCxZNtU91F5sbUNKhL5PX',12.53265359)
 #     # #print(Coins.etc_get_transaction('0xad505C8e97F0E53C20f6b6D49f74c1ccB8EC998F',0.02))
 #     # #print(int(time.mktime(datetime.now().timetuple())))
