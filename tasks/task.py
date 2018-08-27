@@ -1,16 +1,9 @@
-from celery import Celery
-from app.api.transfer import TransferDatas
-from datetime import datetime
-from sqlalchemy import create_engine
-from app.mydb import MyDb
-from app.models import Transfer
-import app
+from task import worker,create_engine,SQLALCHEMY_DATABASE_URI,MyDb,TransferDatas,Transfer
 
-myapp = Celery('tasks','redis://localhost')
 
-@myapp.task
+@worker.task
 def datas_get():
-    engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+    engine = create_engine(SQLALCHEMY_DATABASE_URI)
     db = MyDb(engine)
     datas = TransferDatas.get_transfer_data()
 
