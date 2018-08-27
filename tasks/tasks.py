@@ -4,14 +4,13 @@ from datetime import datetime
 from sqlalchemy import create_engine
 from app.mydb import MyDb
 from app.models import Transfer
+import app
 
-app = Celery('tasks','redis://localhost')
-SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@localhost/exchange'
+myapp = Celery('tasks','redis://localhost')
 
-
-@app.task
+@myapp.task
 def datas_get():
-    engine = create_engine(SQLALCHEMY_DATABASE_URI)
+    engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
     db = MyDb(engine)
     datas = TransferDatas.get_transfer_data()
 

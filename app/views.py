@@ -5,12 +5,10 @@ from .forms import LoginForm
 from .models import Members
 from .models import Transfer
 from .mydb import MyDb
-from . import myconfig
 from werkzeug.security import check_password_hash
 from sqlalchemy import update
 from datetime import datetime
 from sqlalchemy import create_engine
-
 
 
 @app.route('/')
@@ -32,8 +30,8 @@ def transfer(name,methods=['GET']):
     limit = int(request.args.get('limit', '13'))
     if not limit:
         limit = 13
-
-    engine = create_engine(myconfig.SQLALCHEMY_DATABASE_URI)
+    
+    engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
     db = MyDb(engine)
     count = db.transfer_get_count(False,name)
     trans = db.transfer_query_all(False,name,limit,page)
@@ -54,7 +52,7 @@ def transfer_record(name,methods=['GET']):
     if not limit:
         limit = 13
 
-    engine = create_engine(myconfig.SQLALCHEMY_DATABASE_URI)
+    engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
     db = MyDb(engine)
     count = db.transfer_get_count(True,name)
     trans = db.transfer_query_all(True,name,limit,page)
