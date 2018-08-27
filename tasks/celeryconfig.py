@@ -1,11 +1,11 @@
 from datetime import timedelta
-from celery.schedule import crontab
+#from celery.schedule import crontab
 
 
-BROKER_URL = 'redis://127.0.0.1:6379' 
-CELERY_TIMEZONE='Asia/Shanghai' 
+BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_TIMEZONE='Asia/Shanghai'
 
-CELERY_IMPORTS = (                                  
+CELERY_IMPORTS = (
     'tasks.task'
 )
 
@@ -14,7 +14,7 @@ CELERYBEAT_SCHEDULE = {
     'add-every-30-seconds': {
          'task': 'tasks.task.datas_get',
          'schedule': timedelta(seconds=30),       # 每 30 秒执行一次
-         'args': () 
+         'args': ()
     }                                             # 任务函数参数
     # },
     # 'multiply-at-some-time': {
