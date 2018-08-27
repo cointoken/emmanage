@@ -1,8 +1,8 @@
 """create tables
 
-Revision ID: cba67e55e0e2
+Revision ID: df4f95aa26c5
 Revises: 
-Create Date: 2018-08-27 09:19:46.564104
+Create Date: 2018-08-27 17:46:10.282071
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'cba67e55e0e2'
+revision = 'df4f95aa26c5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -41,6 +41,7 @@ def upgrade():
     sa.Column('transfer_time', sa.DateTime(), nullable=True),
     sa.Column('status', sa.Boolean(), nullable=True),
     sa.Column('txid', sa.String(length=255), nullable=True),
+    sa.Column('tran_status', sa.Boolean(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###

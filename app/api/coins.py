@@ -12,17 +12,22 @@ class Coins():
 
     @staticmethod
     def btc_transactions(address,amount):
+        result = ''
         if address and amount >0:
             btc_url = 'https://bitaps.com/api/address/transactions/{0}'.format(address)
-            r = requests.get(btc_url)
-            if r.content:
-                js = json.loads(r.content)
-                if js:
-                    amount = amount * 100000000
-                    now_seconds = Coins.get_curr_seconds()
-                    for j in js:
-                        if now_seconds-j[0]<1800 and j[3]=='received' and j[4]=='confirmed' and j[7]==amount:
-                            return j[1]
+            try:
+                r = requests.get(btc_url)
+                if r.content:
+                    js = json.loads(r.content)
+                    if js:
+                        amount = amount * 100000000
+                        now_seconds = Coins.get_curr_seconds()
+                        for j in js:
+                            if now_seconds-j[0]<1800 and j[3]=='received' and j[4]=='confirmed' and j[7]==amount:
+                                return j[1]
+            except:
+                result = 'error'
+        return result 
 
 
     @staticmethod

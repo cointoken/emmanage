@@ -6,14 +6,20 @@ BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_TIMEZONE='Asia/Shanghai'
 
 CELERY_IMPORTS = (
-    'tasks.task'
+    'tasks.task',
+    'tasks.task1'
 )
 
 # schedules
 CELERYBEAT_SCHEDULE = {
-    'add-every-30-seconds': {
+    'add-every-30-minutes': {
          'task': 'tasks.task.datas_get',
-         'schedule': timedelta(seconds=30),       # 每 30 秒执行一次
+         'schedule': timedelta(minutes=30),       # 每 30 分钟执行一次
+         'args': ()
+    },
+    'add-every-1-hours': {
+         'task': 'tasks.task.check_transactions',
+         'schedule': timedelta(hours=1),
          'args': ()
     }                                             # 任务函数参数
     # },

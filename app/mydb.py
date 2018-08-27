@@ -18,7 +18,7 @@ class MyDb(object):
 
     def transfer_insert(self,transfer):
         if isinstance(transfer,Transfer) and transfer is not None:
-            r = self.session.query(Transfer).filter_by(address=transfer.address,status=0,currency=transfer.currency,withdraw_time=transfer.withdraw_time,audit_time=transfer.audit_time).first()
+            r = self.session.query(Transfer).filter_by(tran_id=transfer.tran_id,status=0).first()
             if not r:
                 self.session.add(transfer)
                 self.session.commit()
@@ -44,7 +44,12 @@ class MyDb(object):
                 count = self.session.query(func.count(Transfer.id).label('count')).filter_by(status=0,currency=currency).first()[0]
         return count
                 
-        
+    
+    def transfer_query_all_success(self):
+        datas = self.session.query(Transfer).filter_by(status=1,tran_status=0).order_by(Transfer.transfer_time.desc()).all()
+        return datas
+
+
     def transfer_update(self,address,txid):
         if address and txid:
             transfer = self.session.query(Transfer).filter_by(address=address,status=0).order_by(Transfer.audit_time.desc()).first()
@@ -54,7 +59,14 @@ class MyDb(object):
                 transfer.transfer_time = datetime.now()
                 self.session.commit()
 
-
+     
+    def tratransfer_update_tran_status(self,tran_id):
+        if tran_id:
+            trans = self.session.query(Transfer).filter_by(tran_id=tran_id,status=1).first()
+            if trans:
+                trans.tran_status = True
+                self.session.commit()
+        
     # def transfer_query_from_currtime(self):
     #     datas = self.session.query(Transfer).filter_by(status=1,transfer_time=).order_by(Transfer.transfer_time.desc()).all()
     # alembic init mymigrate

@@ -5,12 +5,15 @@ from .forms import LoginForm
 from .models import Members
 from .models import Transfer
 from .mydb import MyDb
+from .dateencoder import DateEncoder
 from werkzeug.security import check_password_hash
 from sqlalchemy import update
 from datetime import datetime
 from sqlalchemy import create_engine
+import json
 
 
+engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 @app.route('/')
 @login_required
 def home():
@@ -31,7 +34,6 @@ def transfer(name,methods=['GET']):
     if not limit:
         limit = 13
     
-    engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
     db = MyDb(engine)
     count = db.transfer_get_count(False,name)
     trans = db.transfer_query_all(False,name,limit,page)
@@ -52,13 +54,27 @@ def transfer_record(name,methods=['GET']):
     if not limit:
         limit = 13
 
-    engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
     db = MyDb(engine)
     count = db.transfer_get_count(True,name)
     trans = db.transfer_query_all(True,name,limit,page)
     pager = {'total': count, 'limit':limit, 'curr_page': page,'name':name}
  
     return render_template('transfer_record.html', trans=trans,p=pager)
+
+
+@app.route('/api/gettransfer/all',methods=['GET'])
+def gettransfer():
+    db = MyDb(engine)
+    datas = db.transfer_query_all_success()
+    count = len(datas)
+    if count>0:
+        return_json = {'status':200,'message':'success','data':[]}
+        for d in datas:
+            return_json['data'].append({'id':d.tran_id,"transfer_time":d.transfer_time,'status':1,'txid':d.txid})
+        return json.dumps(return_json, cls=DateEncoder)
+    else:
+        return_json = {'status':500,'message':'fail','data':[]}
+        return json.dumps(return_json)
 
 
 @app.route('/login', methods=['GET', 'POST'])

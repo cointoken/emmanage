@@ -51,6 +51,7 @@ class Transfer(db.Model):
      transfer_time = db.Column(db.DateTime)
      status = db.Column(db.Boolean)
      txid = db.Column(db.String(255))
+     tran_status = db.Column(db.Boolean)
 
      def __init__(self,tran_id,email,phone,currency,amount,fee,address,withdraw_time,audit_time):
          self.tran_id = tran_id
@@ -65,3 +66,4 @@ class Transfer(db.Model):
         # self.transfer_time = transfer_time
          self.status = False
          self.txid = ''
+         self.tran_status = False
