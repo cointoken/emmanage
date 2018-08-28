@@ -18,7 +18,7 @@ CELERYBEAT_SCHEDULE = {
          'args': ()
     },
     'add-every-1-hours': {
-         'task': 'tasks.task.check_transactions',
+         'task': 'tasks.task1.check_transactions',
          'schedule': timedelta(hours=1),
          'args': ()
     }                                             # 任务函数参数
