@@ -326,7 +326,20 @@
   }
 
   const BOM = '\uFEFF'; 
-  function exportCsv(inputData, filename = 'export'+getCurrentDate(2)+'.csv') {
+  function exportCsv(inputData) {
+      url = document.location.toString();
+      var arrUrl = url.split("//");
+      var start  = arrUrl[1].indexOf("/");
+      var relurl = arrUrl[1].substring(start);
+      if(relurl.indexOf("?")!=-1){
+           relurl = relurl.split("?")[0];
+      }
+
+      if (relurl.indexOf("transfer")!=-1){
+           relurl = relurl.substring(10);
+      }
+      
+      filename = relurl+".csv";      
       const csv = arrayToCsv(inputData);
 
       if (navigator.msSaveOrOpenBlob) {
