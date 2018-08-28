@@ -1,5 +1,7 @@
 
 from datetime import datetime
+from copy import deepcopy,copy
+from collections import OrderedDict
 
 def test_status(status):
     if status in range(0,2):
@@ -11,4 +13,9 @@ def test_bool(status):
     else:
         print('false')
 
-test_bool(False)
+dic = OrderedDict()
+dic1 = deepcopy(dic)
+dic2 =  copy(dic1)
+
+print(id(dic),id(dic1),id(dic2))
+print(dic is dic2)

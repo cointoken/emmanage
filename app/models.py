@@ -39,7 +39,7 @@ class Transfer(db.Model):
      __tablename__ = 'transfer'
 
      id = db.Column(db.Integer, primary_key=True)
-     tran_id = db.Column(db.Integer)
+     tran_id = db.Column(db.Integer,unique=True,nullable=False)
      email = db.Column(db.String(30))
      phone = db.Column(db.String(20))
      currency =  db.Column(db.String(20))

@@ -19,7 +19,7 @@ class MyDb(object):
     def transfer_insert(self,transfer):
         if isinstance(transfer,Transfer) and transfer is not None:
             r = self.session.query(Transfer).filter_by(tran_id=transfer.tran_id,status=0).first()
-            if not r:
+            if r is None:
                 self.session.add(transfer)
                 self.session.commit()
 
