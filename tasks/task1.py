@@ -6,7 +6,7 @@ import csv
 
 @worker.task
 def check_transactions():
-    csv_path = '/home/csv/'
+    csv_path = '/home/coins/csv/'
     if os.path.exists(csv_path):
         pdirs = os.listdir(csv_path)
         engine = create_engine(SQLALCHEMY_DATABASE_URI)
