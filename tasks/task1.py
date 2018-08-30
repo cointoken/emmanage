@@ -31,10 +31,16 @@ def check_transactions():
                         else:
                             db = MyDb(engine)  
                             db.transfer_update(item[0],txid)
-            elif p == 'bch.csv':
-                pass
             elif p == 'ltc.csv':
-                pass
+                with open(csv_path+p,'r') as f:
+                    items = csv.reader(f)
+                    for item in items:
+                        txid =  Coins.ltc_get_transactions(item[0],float(item[1]))
+                        if not txid or txid=='error':
+                            return ''
+                        else:
+                            db = MyDb(engine)  
+                            db.transfer_update(item[0],txid)
             elif p == 'eth.csv':
                 with open(csv_path+p,'r') as f:
                     items = csv.reader(f)

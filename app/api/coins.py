@@ -94,6 +94,25 @@ class Coins():
         return result
 
 
+    @staticmethod
+    def ltc_get_transactions(address,amount):
+        result = ''
+        ltc_url = 'https://chain.so/api/v2/address/ltc/{0}'
+        if address:
+            r = requests.get(ltc_url.format(address))
+            j = json.loads(r.content)
+            try:
+                txs =  j['data']['txs']
+                for tx in txs:
+                    if 'incoming' in tx:
+                        if float(tx['incoming']['value'])==amount and  tx['confirmations']>0:
+                            return tx['txid']
+            except:
+                result = 'error'
+        return result
+
+
+        
 # if __name__=='__main__':
 #     print(Coins.usdt_get_transaction('1Lsvv4Ucqe2yMByJJ7HY4ajP6H7B8k77jv',0))
 #     # #Coins.btc_transactions('18cBEMRxXHqzWWCxZNtU91F5sbUNKhL5PX',12.53265359)
