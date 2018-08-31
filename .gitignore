@@ -1,0 +1,4 @@
+*.log
+*.lock
+__pycache__
+*pyc
