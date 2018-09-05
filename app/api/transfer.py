@@ -10,7 +10,7 @@ class TransferDatas():
     @staticmethod
     def get_transfer_data(name):
         result = ''
-        url = 'http://192.168.1.143:3000/admin/audit_withdraws'
+        url = 'http://47.52.209.94:3030/admin/audit_withdraws'
         try:
             r = requests.get(url)
             js = json.loads(r.content.decode('utf-8'))
